@@ -1,0 +1,75 @@
+<?php
+include_once APP_PATH . "/views/header.phtml";
+?>
+
+<header style="margin-top: 70px;">
+    <form action="/order/display" method="post" class="border border-5 p-2 rounded">
+        <div class="row">
+            <h3>Search</h3>
+            <div class="col-3">
+                <label class="mx-2" style="font-size: 23px;" for="search">Status</label>
+                <select name="status" class="form-control">
+                    <option selected disabled>-Select-</option>
+                    <option value="Paid">Paid</option>
+                    <option value="Processing">Processing</option>
+                    <option value="Dispatched">Dispatched</option>
+                    <option value="Shipped">Shipped</option>
+                    <option value="Refunded">Refunded</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label class="mx-2" style="font-size: 23px;" for="search">Date</label>
+                <select name="date" class="form-control">
+                    <option selected disabled>-Select-</option>
+                    <option value="Today">Today</option>
+                    <option value="This week">This week</option>
+                    <option value="This month">This month</option>
+                    <option value="Custom">Custom</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label class="mx-2" style="font-size: 20px;" for="search">Start</label>
+                <input type="text" class="form-control" name="s_date" placeholder="Date">
+            </div>
+            <div class="col-3">
+                <label class="mx-2" style="font-size: 20px;" for="search">End</label>
+                <input type="text" class="form-control" name="e_date" placeholder="Date">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary my-2">Search</button>
+    </form>
+</header>
+
+<table class="table table-bordered my-3">
+    <caption style="text-align: center;">Display Table</caption>
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Variation</th>
+            <th scope="col">Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Status</th>
+            <th scope="col">Date</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $txt = "";
+        foreach ($data as $value) {
+            $txt .= "<tr>
+          <td>$value->product</td>
+          <td>$value->category</td>
+          <td>$value->name</td>
+          <td>$value->quantity</td>
+          <td>$value->status</td>
+          <td>$value->date</td>
+          <td><a href='/order/edit?id=$value->_id' class = 'btn btn-warning'>Edit</a></td>
+          <td><a href='/order/delete?id=$value->_id' class = 'btn btn-danger'>Delete</a></td>
+          </tr>";
+        }
+        echo $txt;
+        ?>
+    </tbody>
+</table>

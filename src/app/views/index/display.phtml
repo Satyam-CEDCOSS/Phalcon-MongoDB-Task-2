@@ -1,0 +1,62 @@
+<?php
+include_once APP_PATH . "/views/header.phtml";
+?>
+
+<header style="margin-top: 70px;">
+  <form action="/index/display" method="post" style="justify-content:center;" class="d-flex">
+    <label class="mx-2" style="font-size: 23px;" for="search">Search</label>
+    <input class="form-control" type="text" name="search" id="search" placeholder="Search">
+    <button type="submit" class="btn btn-primary mx-2">Search</button>
+  </form>
+</header>
+
+<table class="table table-bordered my-3">
+  <caption style="text-align: center;">Display Table</caption>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Price</th>
+      <th scope="col">Stock</th>
+      <th scope="col">Meta</th>
+      <th scope="col">Variation</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php
+    $txt = "";
+    if ($search) {
+      foreach ($data as $value) {
+        if ($value->status == $searc || $value->category == $search) {
+          $txt .= "<tr>
+          <td>$value->name</td>
+          <td>$value->category</td>
+          <td>$value->price</td>
+          <td>$value->stock</td>
+          <td><a href='/index/meta?id=$value->_id' class = 'btn btn-primary'>View</a></td>
+          <td><a href='/index/variation?id=$value->_id' class = 'btn btn-primary'>View</a></td>
+          <td><a href='/index/edit?id=$value->_id' class = 'btn btn-warning'>Edit</a></td>
+          <td><a href='/index/delete?id=$value->_id' class = 'btn btn-danger'>Delete</a></td>
+          </tr>";
+        }
+      }
+    } else {
+      foreach ($data as $value) {
+        $txt .= "<tr>
+          <td>$value->name</td>
+          <td>$value->category</td>
+          <td>$value->price</td>
+          <td>$value->stock</td>
+          <td><a href='/index/meta?id=$value->_id' class = 'btn btn-primary'>View</a></td>
+          <td><a href='/index/variation?id=$value->_id' class = 'btn btn-primary'>View</a></td>
+          <td><a href='/index/edit?id=$value->_id' class = 'btn btn-warning'>Edit</a></td>
+          <td><a href='/index/delete?id=$value->_id' class = 'btn btn-danger'>Delete</a></td>
+          </tr>";
+      }
+    }
+    echo $txt;
+    ?>
+  </tbody>
+</table>

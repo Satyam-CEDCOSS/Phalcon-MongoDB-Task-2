@@ -1,0 +1,16 @@
+<form style="margin-top: 70px;" method="post" action="/order/update?id=<?php echo $data->_id?>">
+    <div class="form-row">
+        <div class="form-group col-md-10">
+            <label for="product">Status</label>
+            <select name="status" class="form-control">
+                <option selected disabled>-Select-</option>
+                <option value="Paid">Paid</option>
+                <option value="Processing">Processing</option>
+                <option value="Dispatched">Dispatched</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Refunded">Refunded</option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success">Update</button>
+</form>

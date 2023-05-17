@@ -1,0 +1,50 @@
+<?php
+session_start();
+include_once APP_PATH . "/views/header.phtml";
+?>
+<form style="margin-top: 70px;" method="post" action="/order/add">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="product">Product</label>
+            <select id="product" name="product" class="form-control">
+                <option selected disabled>-Select-</option>
+                <?php
+                $data = $this->mongo->value->find();
+                $txt = "";
+                foreach ($data as $value) {
+                    $txt .= '<option value=' . $value->name . '>' . $value->name . '</option>';
+                }
+                echo $txt;
+                ?>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="subproduct">Variation</label>
+            <select id="subproduct" name="category" class="form-control">
+                <option selected disabled>-Select-</option>
+                <?php
+                $txt="";
+                $data = $this->mongo->value->find();
+                foreach ($data as $value) {
+                    if ($value->name == $_SESSION['sub']) {
+                        foreach ($value->v_field as $key => $para) {
+                            $txt.='<option value='.$para.'='.$value->v_value[$key].'>'.
+                            $para.'='.$value->v_value[$key].'</option>';
+                        }
+                    }
+                }
+                echo $txt;
+                ?>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Name</label>
+            <input type="text" class="form-control" name="name" placeholder="Name">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">Quantity</label>
+            <input type="number" class="form-control" name="quantity" placeholder="Quantity">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
